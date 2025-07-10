@@ -34,6 +34,7 @@ class _HomeTabState extends State<HomeTab> {
     ];
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: Row(
           children: [
             Column(
@@ -66,12 +67,13 @@ class _HomeTabState extends State<HomeTab> {
           ],
         ),
         bottom: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           toolbarHeight: height * 0.1,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30)
-            )
+              bottomRight: Radius.circular(30),
+            ),
           ),
           title: Column(
             children: [
@@ -82,24 +84,25 @@ class _HomeTabState extends State<HomeTab> {
                   Text('Cairo , Egypt', style: AppStyles.medium14White),
                 ],
               ),
-              SizedBox(height: height * 0.1),
+              SizedBox(height: height * 0.01),
               DefaultTabController(
                 length: eventsNameList.length,
                 child: TabBar(
+                  labelPadding: EdgeInsets.all(4),
                   isScrollable: true,
                   indicatorColor: AppColors.transparentColor,
                   dividerColor: AppColors.transparentColor,
                   tabAlignment: TabAlignment.start,
                   onTap: (index) {
                     selectedIndex = index;
-                    setState(() {
-                      
-                    });
+                    setState(() {});
                   },
                   tabs:
                       eventsNameList.map((eventName) {
                         return EventTabItems(
-                          isSelected: selectedIndex == eventsNameList.indexOf(eventName),
+                          isSelected:
+                              selectedIndex ==
+                              eventsNameList.indexOf(eventName),
                           eventName: eventName,
                         );
                       }).toList(),
@@ -109,25 +112,22 @@ class _HomeTabState extends State<HomeTab> {
           ),
         ),
       ),
-    body: Column(
-      children: [
-        Expanded(child: ListView.separated(
-          padding: EdgeInsets.only(
-            top: height*0.02
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              padding: EdgeInsets.only(top: height * 0.02),
+              itemBuilder: (context, index) {
+                return EventItem();
+              },
+              separatorBuilder: (context, index) {
+                return SizedBox(height: height * 0.02);
+              },
+              itemCount: 20,
+            ),
           ),
-          itemBuilder: (context, index) {
-            return EventItem();
-          },
-          separatorBuilder: (context, index) {
-            return SizedBox(
-              height: height*0.02,
-            );
-          },
-          itemCount:20 ,
-          )
-        )
-      ],
-    ),
+        ],
+      ),
     );
   }
 }

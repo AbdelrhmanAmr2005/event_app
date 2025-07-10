@@ -1,8 +1,10 @@
+import 'package:assignment/ui/home/tabs/home/home_tab.dart';
 import 'package:assignment/ui/home/tabs/love/favorite_tab.dart';
 import 'package:assignment/ui/home/tabs/map/map_tab.dart';
 import 'package:assignment/ui/home/tabs/profile/profile_tab.dart';
 import 'package:assignment/utils/app_assets.dart';
 import 'package:assignment/utils/app_colors.dart';
+import 'package:assignment/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -15,9 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  List<Widget> tabs = [
-    HomeScreen(),MapTab(),FavoriteTab(),ProfileTab()
-  ];
+  List<Widget> tabs = [HomeTab(), MapTab(), FavoriteTab(), ProfileTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(AppRoutes.addEventRouteName);
+        },
         child: Icon(Icons.add, color: AppColors.whiteColor, size: 35),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

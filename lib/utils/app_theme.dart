@@ -8,7 +8,6 @@ class AppTheme {
     focusColor: AppColors.whiteColor,
     scaffoldBackgroundColor: AppColors.whiteBgColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.primaryLight,
       shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),

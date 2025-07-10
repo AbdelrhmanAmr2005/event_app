@@ -20,5 +20,26 @@
 "book_club" : "Book Club",
 "exhibition" : "Exhibition",
 "holiday" : "Holiday",
-"eating" : "Eating"
+"eating" : "Eating",
+"search_event" : "Search For Event",
+"email" : "Email",
+"password" : "Password",
+"forget_password" : "Forget Password",
+"login" : "Login",
+"do_not_have_an_account" : "Don't have an account",
+"create_account" : "Create account",
+"or" : "Or",
+"login_with_google" : "Login with google",
+"please_enter_email" : "Please Enter Email",
+"please_enter_password" : "Please Enter Password",
+"please_enter_valid_email" : "Please enter valid email",
+"password_must_be_atleast_6char" : "password must be at least 6 chars",
+"register" : "Register",
+"name" : "Name",
+"please_enter_name" : "Please Enter User Name",
+"re_password" : "Re Password",
+"please_enter_re_password" : "Please Enter Re-Password",
+"re_password_dosent_match" : "Re-password dosen't match password",
+"already_have_account" : "Already have account"
+
 }

@@ -1,6 +1,9 @@
 import 'package:assignment/provider/App_language_provider.dart';
 import 'package:assignment/provider/App_theme_provider.dart';
+import 'package:assignment/ui/auth/login/login_screen.dart';
+import 'package:assignment/ui/auth/register/register_screen.dart';
 import 'package:assignment/ui/home/home_screen.dart';
+import 'package:assignment/ui/home/tabs/home/add_event/add_event.dart';
 import 'package:assignment/utils/app_routes.dart';
 import 'package:assignment/utils/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +30,10 @@ class MyApp extends StatelessWidget {
       initialRoute: AppRoutes.homeRouteName,
       routes: {
         AppRoutes.homeRouteName : (context) => HomeScreen(),
+        AppRoutes.loginRouteName : (context) => LoginScreen(),
+        AppRoutes.registerRouteName : (context) => RegisterScreen(),
+        AppRoutes.addEventRouteName : (context) => AddEvent(),
+
       },
       locale: Locale(languageProvider.appLanguage),
       theme: AppTheme.lightTheme,

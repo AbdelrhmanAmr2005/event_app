@@ -2,6 +2,7 @@ import 'package:assignment/provider/App_language_provider.dart';
 import 'package:assignment/provider/App_theme_provider.dart';
 import 'package:assignment/ui/home/tabs/profile/language/language_bottom_sheet.dart';
 import 'package:assignment/ui/home/tabs/profile/theme/theme_bottom_sheet.dart';
+import 'package:assignment/ui/home/tabs/widgets/custom_elevated_button.dart';
 import 'package:assignment/utils/app_assets.dart';
 import 'package:assignment/utils/app_colors.dart';
 import 'package:assignment/utils/app_styles.dart';
@@ -57,7 +58,7 @@ class ProfileTab extends StatelessWidget {
           vertical: height * 0.02,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               languageProvider.appLanguage == 'en'
@@ -136,28 +137,19 @@ class ProfileTab extends StatelessWidget {
               ),
             ),
           Spacer(),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.redColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16)
-              ),
-              padding: EdgeInsets.symmetric(
-                vertical: height*0.02,
-                horizontal: width*0.04
-              )
+          CustomElevatedButton(onPressed: (){}, 
+          backgroundColor: AppColors.redColor,
+          borderColor: AppColors.redColor,
+          icon: true,
+          iconWidget: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: width*0.02
             ),
-            onPressed: (){
-
-          },
-          child: Row(
-            children: [
-              Icon(Icons.logout, color: AppColors.whiteColor, size: 30,),
-              SizedBox(width: width*0.02,),
-              Text(AppLocalizations.of(context)!.logout,
-              style: AppStyles.regular20White,)
-            ],
-          )),
+            child: Icon(Icons.logout,
+            color: AppColors.whiteColor, size: 30,),
+          ),
+          text: AppLocalizations.of(context)!.logout,
+          ),
           SizedBox(height: height*0.02,)
           ],
         ),
