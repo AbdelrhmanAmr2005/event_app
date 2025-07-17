@@ -45,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       CustomTextFormField(
+                        colorBorderSide: Theme.of(context).splashColor,
                         hintText: AppLocalizations.of(context)!.email,
                         prefixIcon: Image.asset(AppAssets.iconEmail),
                         controller: emailController,
@@ -68,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: height * 0.02),
                       CustomTextFormField(
+                        colorBorderSide: Theme.of(context).splashColor,
                         hintText: AppLocalizations.of(context)!.password,
                         prefixIcon: Image.asset(AppAssets.iconPassword),
                         suffixIcon: Image.asset(AppAssets.iconShowPassword),
@@ -107,9 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: height * 0.02),
                       CustomElevatedButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
-                          }
+                          Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
                         },
                         text: AppLocalizations.of(context)!.login,
                       ),
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onTap: () {
                                   Navigator.of(
                                   context,
-                                ).pushNamed(AppRoutes.registerRouteName);
+                                ).pushReplacementNamed(AppRoutes.registerRouteName);
                             },
                             child: Text(
                               AppLocalizations.of(context)!.create_account,
@@ -171,9 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         icon: true,
                         iconWidget: Image.asset(AppAssets.iconGoogle),
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
-                          }
+                          Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
                         },
                         text: AppLocalizations.of(context)!.login_with_google,
                       ),

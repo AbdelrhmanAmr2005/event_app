@@ -5,6 +5,7 @@ import 'package:assignment/ui/home/tabs/profile/theme/theme_bottom_sheet.dart';
 import 'package:assignment/ui/home/tabs/widgets/custom_elevated_button.dart';
 import 'package:assignment/utils/app_assets.dart';
 import 'package:assignment/utils/app_colors.dart';
+import 'package:assignment/utils/app_routes.dart';
 import 'package:assignment/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,37 +21,33 @@ class ProfileTab extends StatelessWidget {
     var languageProvider = Provider.of<AppLanguageProvider>(context);
     var themeProvider = Provider.of<AppThemeProvider>(context);
     return Scaffold(
-      appBar: AppBar(backgroundColor: AppColors.primaryLight,
-      toolbarHeight: height*0.18,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(45)
-        )
-      ),
-      title: Padding(
-        padding: EdgeInsets.only(
-          bottom: height*0.01
+      appBar: AppBar(
+        backgroundColor: AppColors.primaryLight,
+        toolbarHeight: height * 0.18,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(45)),
         ),
-        child: Row(
-          children: [
-            Image.asset(AppAssets.routeImage),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: width*0.04
+        title: Padding(
+          padding: EdgeInsets.only(bottom: height * 0.01),
+          child: Row(
+            children: [
+              Image.asset(AppAssets.routeImage),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Route Academy', style: AppStyles.bold24White),
+                    Text(
+                      'routeacademy@gmail.com',
+                      style: AppStyles.medium16White,
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Route Academy',
-                  style: AppStyles.bold24White,),
-                  Text('routeacademy@gmail.com',
-                  style: AppStyles.medium16White,)
-                ],
-              ),
-            )
-          ],
+            ],
+          ),
         ),
-      ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -123,10 +120,11 @@ class ProfileTab extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      themeProvider.appTheme == ThemeMode.dark ?
-                    AppLocalizations.of(context)!.dark:
-                    AppLocalizations.of(context)!.light
-                    , style: AppStyles.bold20Praimary),
+                      themeProvider.appTheme == ThemeMode.dark
+                          ? AppLocalizations.of(context)!.dark
+                          : AppLocalizations.of(context)!.light,
+                      style: AppStyles.bold20Praimary,
+                    ),
                     Icon(
                       Icons.arrow_drop_up_outlined,
                       size: 35,
@@ -136,21 +134,25 @@ class ProfileTab extends StatelessWidget {
                 ),
               ),
             ),
-          Spacer(),
-          CustomElevatedButton(onPressed: (){}, 
-          backgroundColor: AppColors.redColor,
-          borderColor: AppColors.redColor,
-          icon: true,
-          iconWidget: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: width*0.02
+            Spacer(),
+            CustomElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.loginRouteName);
+              },
+              backgroundColor: AppColors.redColor,
+              borderColor: AppColors.redColor,
+              icon: true,
+              iconWidget: Padding(
+                padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                child: Icon(
+                  Icons.logout,
+                  color: AppColors.whiteColor,
+                  size: 30,
+                ),
+              ),
+              text: AppLocalizations.of(context)!.logout,
             ),
-            child: Icon(Icons.logout,
-            color: AppColors.whiteColor, size: 30,),
-          ),
-          text: AppLocalizations.of(context)!.logout,
-          ),
-          SizedBox(height: height*0.02,)
+            SizedBox(height: height * 0.02),
           ],
         ),
       ),
