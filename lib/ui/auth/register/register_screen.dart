@@ -15,11 +15,17 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController emailController = TextEditingController(text: "abdo@gmail.com");
+  TextEditingController emailController = TextEditingController(
+    text: "abdo@gmail.com",
+  );
 
-  TextEditingController passwordController = TextEditingController(text: "123456");
+  TextEditingController passwordController = TextEditingController(
+    text: "123456",
+  );
 
-  TextEditingController rePasswordController = TextEditingController(text: "123456");
+  TextEditingController rePasswordController = TextEditingController(
+    text: "123456",
+  );
 
   TextEditingController nameController = TextEditingController(text: "abdo");
 
@@ -40,9 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: width*0.04
-          ),
+          padding: EdgeInsets.symmetric(horizontal: width * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -54,27 +58,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CustomTextFormField(
+                      colorBorderSide: Theme.of(context).splashColor,
                       hintText: AppLocalizations.of(context)!.name,
                       prefixIcon: Image.asset(AppAssets.iconUserName),
                       controller: nameController,
                       keyBoardType: TextInputType.emailAddress,
                       validator: (text) {
                         if (text == null || text.trim().isEmpty) {
-                          return "${AppLocalizations.of(context)!.please_enter_name}";
+                          return AppLocalizations.of(
+                            context,
+                          )!.please_enter_name;
                         }
                         return null;
                       },
                     ),
                     SizedBox(height: height * 0.02),
-          
+
                     CustomTextFormField(
+                      colorBorderSide: Theme.of(context).splashColor,
                       hintText: AppLocalizations.of(context)!.email,
                       prefixIcon: Image.asset(AppAssets.iconEmail),
                       controller: emailController,
                       keyBoardType: TextInputType.emailAddress,
                       validator: (text) {
                         if (text == null || text.trim().isEmpty) {
-                          return "${AppLocalizations.of(context)!.please_enter_email}";
+                          return AppLocalizations.of(
+                            context,
+                          )!.please_enter_email;
                         }
                         final bool emailValid = RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
@@ -89,6 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: height * 0.02),
                     CustomTextFormField(
+                      colorBorderSide: Theme.of(context).splashColor,
                       hintText: AppLocalizations.of(context)!.password,
                       prefixIcon: Image.asset(AppAssets.iconPassword),
                       suffixIcon: Image.asset(AppAssets.iconShowPassword),
@@ -97,7 +108,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obsecureText: true,
                       validator: (text) {
                         if (text == null || text.trim().isEmpty) {
-                          return "${AppLocalizations.of(context)!.please_enter_password}";
+                          return AppLocalizations.of(
+                            context,
+                          )!.please_enter_password;
                         }
                         if (text.length > 6) {
                           return AppLocalizations.of(
@@ -109,6 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: height * 0.02),
                     CustomTextFormField(
+                      colorBorderSide: Theme.of(context).splashColor,
                       hintText: AppLocalizations.of(context)!.re_password,
                       prefixIcon: Image.asset(AppAssets.iconPassword),
                       suffixIcon: Image.asset(AppAssets.iconShowPassword),
@@ -117,7 +131,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obsecureText: true,
                       validator: (text) {
                         if (text == null || text.trim().isEmpty) {
-                          return "${AppLocalizations.of(context)!.please_enter_re_password}";
+                          return AppLocalizations.of(
+                            context,
+                          )!.please_enter_re_password;
                         }
                         if (text.length > 6) {
                           return AppLocalizations.of(
@@ -125,7 +141,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           )!.password_must_be_atleast_6char;
                         }
                         if (passwordController.text != text) {
-                          return "${AppLocalizations.of(context)!.re_password_dosent_match}";
+                          return AppLocalizations.of(
+                            context,
+                          )!.re_password_dosent_match;
                         }
                         return null;
                       },
@@ -133,7 +151,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: height * 0.02),
                     CustomElevatedButton(
                       onPressed: () {
-                        register();
+                        Navigator.of(
+                          context,
+                        ).pushReplacementNamed(AppRoutes.homeRouteName);
                       },
                       text: AppLocalizations.of(context)!.create_account,
                     ),
@@ -148,7 +168,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(width: width * 0.02),
                         InkWell(
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.of(
+                              context,
+                            ).pushNamed(AppRoutes.loginRouteName);
                           },
                           child: Text(
                             AppLocalizations.of(context)!.login,
@@ -172,9 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void register() {
     if (formKey.currentState?.validate() == true) {
-          Navigator.of(
-          context,
-          ).pushReplacementNamed(AppRoutes.homeRouteName);
+      Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
     }
   }
 }

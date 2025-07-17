@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: AppRoutes.homeRouteName,
+      initialRoute: AppRoutes.loginRouteName,
       routes: {
         AppRoutes.homeRouteName : (context) => HomeScreen(),
         AppRoutes.loginRouteName : (context) => LoginScreen(),
