@@ -39,6 +39,9 @@ class CustomTextFormField extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return TextFormField(
+      style: TextStyle(
+        color: Theme.of(context).canvasColor
+      ) ,
       maxLines: maxLines ?? 1,
       decoration: InputDecoration(
         enabledBorder: buildDecorationBorder(
@@ -54,17 +57,20 @@ class CustomTextFormField extends StatelessWidget {
         errorStyle: AppStyles.medium16Praimary.copyWith(
           color: AppColors.redColor,
         ),
+        
         hintText: hintText,
         hintStyle: hintStyle ?? AppStyles.medium16Gray,
         labelText: labelText,
         labelStyle: labelStyle ?? AppStyles.medium16Gray,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        
       ),
       validator: validator,
       controller: controller,
       keyboardType: keyBoardType,
       obscureText: obsecureText,
+      
     );
   }
 

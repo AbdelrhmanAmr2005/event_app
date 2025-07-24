@@ -52,7 +52,9 @@
 "choose_time" : "Choose time",
 "location" : "Location",
 "choose_event_location" : "Choose event location",
-"add_event" : "Add event"
-
-
+"add_event" : "Add event",
+"please_enter_event_title" : "please enter event title",
+"please_enter_event_description" : "please enter event description",
+"no_events_found" : "No events found",
+"no_favorite_events_found" : "No favorite events found"
 }

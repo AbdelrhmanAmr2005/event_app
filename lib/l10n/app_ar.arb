@@ -52,5 +52,8 @@
 "choose_time" : "اختر الوقت",
 "location" : "الموقع",
 "choose_event_location" : "اختر موقع الحدث",
-"add_event" : "اضافه حدث"
+"add_event" : "اضافه حدث",
+"please_enter_event_title" : "ادخل عنوان الحدث",
+"please_enter_event_description" : "ادخل وصف الحدث",
+"no_events_found" : "لا يوجد حدث"
 }

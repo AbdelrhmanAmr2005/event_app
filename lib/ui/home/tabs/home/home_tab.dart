@@ -1,10 +1,16 @@
+import 'package:assignment/firebase_utils.dart';
+import 'package:assignment/model/event.dart';
+import 'package:assignment/provider/event_list_provider.dart';
 import 'package:assignment/ui/home/tabs/home/widget/event_item.dart';
 import 'package:assignment/ui/home/tabs/home/widget/event_tab_items.dart';
 import 'package:assignment/utils/app_assets.dart';
 import 'package:assignment/utils/app_colors.dart';
 import 'package:assignment/utils/app_styles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -14,10 +20,13 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  int selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
+    var eventListProvider = Provider.of<EventListProvider>(context);
+    eventListProvider.getEventNameList(context);
+    if (eventListProvider.eventList.isEmpty) {
+      eventListProvider.getAllEvents();
+    }
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     List<String> eventsNameList = [
@@ -86,7 +95,7 @@ class _HomeTabState extends State<HomeTab> {
               ),
               SizedBox(height: height * 0.01),
               DefaultTabController(
-                length: eventsNameList.length,
+                length: eventListProvider.eventsNameList.length,
                 child: TabBar(
                   labelPadding: EdgeInsets.all(4),
                   isScrollable: true,
@@ -94,18 +103,19 @@ class _HomeTabState extends State<HomeTab> {
                   dividerColor: AppColors.transparentColor,
                   tabAlignment: TabAlignment.start,
                   onTap: (index) {
-                    selectedIndex = index;
-                    setState(() {});
+                    eventListProvider.changeSelectedIndex(index); 
                   },
                   tabs:
-                      eventsNameList.map((eventName) {
+                      eventListProvider.eventsNameList.map((eventName) {
                         return EventTabItems(
-                          selectedTextStyle: Theme.of(context).textTheme.headlineMedium,
-                          unSelectedTextStyle: Theme.of(context).textTheme.headlineSmall,
+                          selectedTextStyle:
+                              Theme.of(context).textTheme.headlineMedium,
+                          unSelectedTextStyle:
+                              Theme.of(context).textTheme.headlineSmall,
                           selectedBgColor: Theme.of(context).focusColor,
                           isSelected:
-                              selectedIndex ==
-                              eventsNameList.indexOf(eventName),
+                              eventListProvider.selectedIndex ==
+                              eventListProvider.eventsNameList.indexOf(eventName),
                           eventName: eventName,
                         );
                       }).toList(),
@@ -118,15 +128,19 @@ class _HomeTabState extends State<HomeTab> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.separated(
+            child: eventListProvider.filterEventList.isEmpty?
+            Center(child: Text(AppLocalizations.of(context)!.no_events_found, 
+            style: AppStyles.bold20Black,),)
+            : 
+            ListView.separated(
               padding: EdgeInsets.only(top: height * 0.02),
               itemBuilder: (context, index) {
-                return EventItem();
+                return EventItem(event: eventListProvider.filterEventList[index]);
               },
               separatorBuilder: (context, index) {
                 return SizedBox(height: height * 0.02);
               },
-              itemCount: 20,
+              itemCount: eventListProvider.filterEventList.length,
             ),
           ),
         ],

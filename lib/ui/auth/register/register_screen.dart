@@ -4,6 +4,8 @@ import 'package:assignment/utils/app_assets.dart';
 import 'package:assignment/utils/app_colors.dart';
 import 'package:assignment/utils/app_routes.dart';
 import 'package:assignment/utils/app_styles.dart';
+import 'package:assignment/utils/dialog_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -53,14 +55,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Image.asset(AppAssets.logoTop, height: height * 0.20),
               SizedBox(height: height * 0.02),
               Form(
+                key: formKey,
                 child: Column(
-                  key: formKey,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CustomTextFormField(
                       colorBorderSide: Theme.of(context).splashColor,
                       hintText: AppLocalizations.of(context)!.name,
-                      prefixIcon: Image.asset(AppAssets.iconUserName),
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      prefixIcon: Image.asset(
+                        AppAssets.iconUserName,
+                        color: Theme.of(context).canvasColor,
+                      ),
                       controller: nameController,
                       keyBoardType: TextInputType.emailAddress,
                       validator: (text) {
@@ -73,11 +81,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                     SizedBox(height: height * 0.02),
-
                     CustomTextFormField(
                       colorBorderSide: Theme.of(context).splashColor,
                       hintText: AppLocalizations.of(context)!.email,
-                      prefixIcon: Image.asset(AppAssets.iconEmail),
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      prefixIcon: Image.asset(
+                        AppAssets.iconEmail,
+                        color: Theme.of(context).canvasColor,
+                      ),
                       controller: emailController,
                       keyBoardType: TextInputType.emailAddress,
                       validator: (text) {
@@ -101,8 +114,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     CustomTextFormField(
                       colorBorderSide: Theme.of(context).splashColor,
                       hintText: AppLocalizations.of(context)!.password,
-                      prefixIcon: Image.asset(AppAssets.iconPassword),
-                      suffixIcon: Image.asset(AppAssets.iconShowPassword),
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      prefixIcon: Image.asset(
+                        AppAssets.iconPassword,
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      suffixIcon: Image.asset(
+                        AppAssets.iconShowPassword,
+                        color: Theme.of(context).canvasColor,
+                      ),
                       controller: passwordController,
                       keyBoardType: TextInputType.number,
                       obsecureText: true,
@@ -124,8 +146,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     CustomTextFormField(
                       colorBorderSide: Theme.of(context).splashColor,
                       hintText: AppLocalizations.of(context)!.re_password,
-                      prefixIcon: Image.asset(AppAssets.iconPassword),
-                      suffixIcon: Image.asset(AppAssets.iconShowPassword),
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      prefixIcon: Image.asset(
+                        AppAssets.iconPassword,
+                        color: Theme.of(context).canvasColor,
+                      ),
+                      suffixIcon: Image.asset(
+                        AppAssets.iconShowPassword,
+                        color: Theme.of(context).canvasColor,
+                      ),
                       controller: rePasswordController,
                       keyBoardType: TextInputType.number,
                       obsecureText: true,
@@ -151,9 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: height * 0.02),
                     CustomElevatedButton(
                       onPressed: () {
-                        Navigator.of(
-                          context,
-                        ).pushReplacementNamed(AppRoutes.homeRouteName);
+                        register();
                       },
                       text: AppLocalizations.of(context)!.create_account,
                     ),
@@ -163,7 +192,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: [
                         Text(
                           "${AppLocalizations.of(context)!.already_have_account}?",
-                          style: AppStyles.bold16Black,
+                          style: AppStyles.bold16Black.copyWith(
+                            color: Theme.of(context).cardColor,
+                          ),
                         ),
                         SizedBox(width: width * 0.02),
                         InkWell(
@@ -192,9 +223,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void register() {
-    if (formKey.currentState?.validate() == true) {
-      Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
+  void register() async {
+    if (formKey.currentState!.validate()) {
+      DialogUtils.showLoading(context: context);
+      try {
+        final credential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
+            );
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMassage(
+          context: context,
+          message: "Register successfully",
+          posActionName: "Ok"
+              ,posAction: (){
+                Navigator.pushReplacementNamed(context, AppRoutes.homeRouteName);
+          }
+        );
+      } catch (e) {
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMassage(context: context, message: "$e",
+        posActionName: "Ok"
+              ,posAction: (){
+                Navigator.pop(context);
+          });
+      }
     }
   }
 }
