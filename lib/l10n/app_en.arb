@@ -13,7 +13,7 @@
 "welcome_back" : "Welcome Back",
 "all" : "All",
 "sport" : "Sport",
-"birthday" : "Birthdat",
+"birthday" : "Birthday",
 "meeting" : "Meeting",
 "gaming" : "Gaming",
 "workshop" : "WorkShop",
@@ -40,6 +40,21 @@
 "re_password" : "Re Password",
 "please_enter_re_password" : "Please Enter Re-Password",
 "re_password_dosent_match" : "Re-password dosen't match password",
-"already_have_account" : "Already have account"
-
+"already_have_account" : "Already have account",
+"create_event" : "Create Event",
+"title" : "Title",
+"event_title" : "Event Title",
+"description" : "Description",
+"event_description" : "Event description",
+"event_date" : "Event date",
+"choose_date" : "Choose date",
+"event_time" : "Event time",
+"choose_time" : "Choose time",
+"location" : "Location",
+"choose_event_location" : "Choose event location",
+"add_event" : "Add event",
+"please_enter_event_title" : "please enter event title",
+"please_enter_event_description" : "please enter event description",
+"no_events_found" : "No events found",
+"no_favorite_events_found" : "No favorite events found"
 }

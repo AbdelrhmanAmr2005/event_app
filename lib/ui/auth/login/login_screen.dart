@@ -4,6 +4,8 @@ import 'package:assignment/utils/app_assets.dart';
 import 'package:assignment/utils/app_colors.dart';
 import 'package:assignment/utils/app_routes.dart';
 import 'package:assignment/utils/app_styles.dart';
+import 'package:assignment/utils/dialog_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -40,13 +42,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 Image.asset(AppAssets.logoTop, height: height * 0.20),
                 SizedBox(height: height * 0.02),
                 Form(
+                  key: formKey,
                   child: Column(
-                    key: formKey,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       CustomTextFormField(
+                        colorBorderSide: Theme.of(context).splashColor,
                         hintText: AppLocalizations.of(context)!.email,
-                        prefixIcon: Image.asset(AppAssets.iconEmail),
+                        hintStyle: TextStyle(
+                          color: Theme.of(context).canvasColor,
+                        ),
+                        prefixIcon: Image.asset(
+                          AppAssets.iconEmail,
+                          color: Theme.of(context).canvasColor,
+                        ),
                         controller: emailController,
                         keyBoardType: TextInputType.emailAddress,
                         validator: (text) {
@@ -68,9 +77,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: height * 0.02),
                       CustomTextFormField(
+                        colorBorderSide: Theme.of(context).splashColor,
                         hintText: AppLocalizations.of(context)!.password,
-                        prefixIcon: Image.asset(AppAssets.iconPassword),
-                        suffixIcon: Image.asset(AppAssets.iconShowPassword),
+                        hintStyle: TextStyle(
+                          color: Theme.of(context).canvasColor,
+                        ),
+                        prefixIcon: Image.asset(
+                          AppAssets.iconPassword,
+                          color: Theme.of(context).canvasColor,
+                        ),
+                        suffixIcon: Image.asset(
+                          AppAssets.iconShowPassword,
+                          color: Theme.of(context).canvasColor,
+                        ),
                         controller: passwordController,
                         keyBoardType: TextInputType.number,
                         obsecureText: true,
@@ -79,8 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return AppLocalizations.of(
                               context,
                             )!.please_enter_password;
-                          }
-                          if (text.length > 6) {
+                          } else if (text.length < 6) {
                             return AppLocalizations.of(
                               context,
                             )!.password_must_be_atleast_6char;
@@ -107,9 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: height * 0.02),
                       CustomElevatedButton(
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
-                          }
+                          login();
                         },
                         text: AppLocalizations.of(context)!.login,
                       ),
@@ -119,14 +135,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Text(
                             "${AppLocalizations.of(context)!.do_not_have_an_account}?",
-                            style: AppStyles.bold16Black,
+                            style: AppStyles.bold16Black.copyWith(
+                              color: Theme.of(context).cardColor,
+                            ),
                           ),
                           SizedBox(width: width * 0.02),
                           InkWell(
                             onTap: () {
-                                  Navigator.of(
-                                  context,
-                                ).pushNamed(AppRoutes.registerRouteName);
+                              Navigator.of(context).pushReplacementNamed(
+                                AppRoutes.registerRouteName,
+                              );
                             },
                             child: Text(
                               AppLocalizations.of(context)!.create_account,
@@ -171,9 +189,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         icon: true,
                         iconWidget: Image.asset(AppAssets.iconGoogle),
                         onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
-                          }
+                          Navigator.of(
+                            context,
+                          ).pushReplacementNamed(AppRoutes.homeRouteName);
                         },
                         text: AppLocalizations.of(context)!.login_with_google,
                       ),
@@ -188,9 +206,25 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // void login() {
-  //   if (formKey.currentState.validate()) {
-  //     Navigator.of(context).pushReplacementNamed(AppRoutes.homeRouteName);
-  //   }
-  // }
+  void login() async {
+    if (formKey.currentState!.validate()) {
+      DialogUtils.showLoading(context: context);
+      try {
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
+            );
+            DialogUtils.hideLoading(context: context);
+            DialogUtils.showMassage(
+              context: context,
+              message: "Login successfully",
+        );
+        Navigator.pushReplacementNamed(context, AppRoutes.homeRouteName);
+      } catch (e) {
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMassage(context: context, message: "$e");
+      }
+    }
+  }
 }

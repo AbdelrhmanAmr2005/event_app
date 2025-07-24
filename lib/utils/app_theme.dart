@@ -19,6 +19,9 @@ class AppTheme {
       headlineMedium: AppStyles.medium16Praimary,
       headlineSmall: AppStyles.medium16White
     ),
+    cardColor : AppColors.blackColor,
+    canvasColor: AppColors.greyColor,
+    splashColor: AppColors.greyColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.primaryLight,
       type: BottomNavigationBarType.fixed,
@@ -56,6 +59,9 @@ class AppTheme {
       headlineMedium: AppStyles.medium16White,
       headlineSmall: AppStyles.medium16White
     ),
+    cardColor : AppColors.whiteColor,
+    canvasColor: AppColors.whiteColor,
+    splashColor: AppColors.primaryLight,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.primaryDark,
       type: BottomNavigationBarType.fixed,
