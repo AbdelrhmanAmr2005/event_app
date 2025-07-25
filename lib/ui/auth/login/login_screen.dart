@@ -215,15 +215,25 @@ class _LoginScreenState extends State<LoginScreen> {
               email: emailController.text,
               password: passwordController.text,
             );
-            DialogUtils.hideLoading(context: context);
-            DialogUtils.showMassage(
-              context: context,
-              message: "Login successfully",
+        DialogUtils.hideLoading(context: context);
+        DialogUtils.showMassage(
+          context: context,
+          message: "Login successfully",
+          posActionName: "Ok",
+          posAction: () {
+            Navigator.pushReplacementNamed(context, AppRoutes.homeRouteName);
+          },
         );
-        Navigator.pushReplacementNamed(context, AppRoutes.homeRouteName);
       } catch (e) {
         DialogUtils.hideLoading(context: context);
-        DialogUtils.showMassage(context: context, message: "$e");
+        DialogUtils.showMassage(
+          context: context,
+          message: "$e",
+          posActionName: "Ok",
+          posAction: () {
+            Navigator.pop(context);
+          },
+        );
       }
     }
   }

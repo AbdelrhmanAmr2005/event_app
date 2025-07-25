@@ -74,7 +74,7 @@ class EventListProvider extends ChangeNotifier {
   void updateIsFavorite(Event event) {
     FirebaseUtils.getEventsCollection()
         .doc(event.id)
-        .update({"is_favorite": !event.isFavorite})
+        .update({"isFavorite": !event.isFavorite})
         .timeout(
           Duration(milliseconds: 500),
           onTimeout: () {

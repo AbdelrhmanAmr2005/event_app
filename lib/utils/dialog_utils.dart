@@ -24,7 +24,6 @@ class DialogUtils {
 
   static void hideLoading({required BuildContext context}) {
       Navigator.pop(context);
-    
   }
 
   static void showMassage({
@@ -60,15 +59,15 @@ class DialogUtils {
         );
       }
     }
-    // showDialog(
-    //   barrierDismissible:barrierDismissible ,
-    //   context: context,
-    //   builder:
-    //       (context) => AlertDialog(
-    //         content: Text(message, style: AppStyles.medium16Black),
-    //         title: Text(title ?? "", style: AppStyles.medium16Black),
-    //         actions: actions,
-    //       ),
-    //);
+    showDialog(
+      barrierDismissible:barrierDismissible ,
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            content: Text(message, style: AppStyles.medium16Black),
+            title: Text(title ?? "", style: AppStyles.medium16Black),
+            actions: actions,
+          ),
+    );
   }
 }
